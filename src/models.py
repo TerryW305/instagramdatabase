@@ -8,7 +8,7 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class Users(Base)
+class Users(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     username = Column(String(30), unique=True, nullable=False)
@@ -19,9 +19,10 @@ class Users(Base)
 
 class Followers(Base):
     __tablename__ = 'followers' 
+    id = Column(Integer, primary_key=True)
     user = relationship('User')
-    use_from_id = Column(Integer, ForeignKey('User_id), nullable=True)
-    use_to_id = Column(Integer, ForeignKey('User_id), nullable=True)
+    use_from_id = Column(Integer, ForeignKey('user_from_id'), nullable=True)
+    use_to_id = Column(Integer, ForeignKey('user_to_id'), nullable=True)
 
 class Post(Base):
     __tablename__ = "post"   
@@ -29,13 +30,22 @@ class Post(Base):
     user = relationship(User)
     User_id = Column(Integer, ForeignKey(User_id), nullable=True)
 
-class Media(Base)
+class Media(Base):
     __tablename__ = "media"
     id = Column(Integer, primary_key=True)
     mediatype = Column(Enum)
     url = Column(String)
     post = relationship(Post)
-    post_id = Column(Integer, ForeignKey('post.id'), nullable=True
+    post_id = Column(Integer, ForeignKey('post.id'), nullable=True)
+
+class Comment(Base):
+    __tablename__ = 'comment'
+    id = Column(Integer, primary_key=True)
+    comment_text = Column(String)
+    post = relationship(Post)
+    post_id = Column(Integer, ForeignKey('post.id'), nullable=True)
+    user = relationship(User)
+    user_id = Column(Interger,ForeignKey('user_id'), nullable=True)
 
 
 
