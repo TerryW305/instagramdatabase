@@ -23,5 +23,20 @@ class Followers(Base):
     use_from_id = Column(Integer, ForeignKey('User_id), nullable=True)
     use_to_id = Column(Integer, ForeignKey('User_id), nullable=True)
 
+class Post(Base):
+    __tablename__ = "post"   
+    id = Column(Integer, primary_key=True)
+    user = relationship(User)
+    User_id = Column(Integer, ForeignKey(User_id), nullable=True)
+
+class Media(Base)
+    __tablename__ = "media"
+    id = Column(Integer, primary_key=True)
+    mediatype = Column(Enum)
+    url = Column(String)
+    post = relationship(Post)
+    post_id = Column(Integer, ForeignKey('post.id'), nullable=True
+
+
 
 render_er(Base, 'diagram.png')
